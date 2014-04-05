@@ -73,7 +73,7 @@ exports.getRepo = function(repoName, callback){
         }else{
             console.log('\n\n\nreadme for repo: ' + repoName);
             
-            //convert cloudinfo.content base64 encoded into string
+            //convert pacinfo.content base64 encoded into string
             var readme_md = new Buffer(readme.content, 'base64').toString();
             
             console.dir(readme_md);
@@ -81,27 +81,27 @@ exports.getRepo = function(repoName, callback){
             var readme_html = markdown.toHTML( readme_md );
 
 
-            //get the cloudinfo.json file to
+            //get the pacinfo.json file to
             //return other metadata
             github.repos.getContent({
                 user: "columbiagsapp",               
                 repo: repoName,
-                path: "cloudinfo.json",     
+                path: "pacinfo.json",     
 
-            }, function(err, cloudinfo){
+            }, function(err, pacinfo){
                 if(err){
-                    //if no cloudinfo.json file, callback without a url
+                    //if no pacinfo.json file, callback without a url
                     callback(null, readme_html);
                 }else{
                     
 
-                    //convert cloudinfo.content base64 encoded into string
-                    var cloudinfo_json = new Buffer(cloudinfo.content, 'base64').toString();
-                    cloudinfo_json = JSON.parse(cloudinfo_json);//convert to JSON object
+                    //convert pacinfo.content base64 encoded into string
+                    var pacinfo_json = new Buffer(pacinfo.content, 'base64').toString();
+                    pacinfo_json = JSON.parse(pacinfo_json);//convert to JSON object
 
-                    console.log('\n\n\n\n\n\n\nURL: ' + cloudinfo_json.url);
+                    console.log('\n\n\n\n\n\n\nURL: ' + pacinfo_json.url);
 
-                    callback(null, readme_html, cloudinfo_json.url);
+                    callback(null, readme_html, pacinfo_json.url);
                 }
             });
         }
@@ -119,15 +119,68 @@ exports.getRepos = function(callback){
     Repo.find().exec(function(err, repos_array){
 
         if(err){
-
+            callback("Database error: find() repositories from database");
         }else{
             console.log('returned ' + repos_array.length + ' repos');
-        }
+
+            var count = 0;
+            var repos_count = repos_array.length;
+
+
+            console.log('\n\n\nTHIS IS THE REPOS ARRAY:\n\n\n');
+            console.dir(repos_array);
+
+            //console.log('\n\n\n\nTHIS IS THE repos_array.length: '+ repos_array.length + '\n\n\n\n');
+            var callback_array = [];
+
+            for(var r = 0; r < repos_array.length; r++){
+                (function(r) {
+
+                    console.log('r: ' + r + ' username: ' + repos_array[r].username + ' reponame: ' + repos_array[r].reponame);
+
+                    github.repos.getContent({
+                        user: repos_array[r].username,               
+                        repo: repos_array[r].reponame,
+                        path: "pacinfo.json",     
+
+                    }, function(err, pacinfo){
+                        if(err){
+                            //if no pacinfo.json file, do nothing
+                            console.log('no pacinfo.json file');
+                        }else{
+                            callback_array.push( repos_array[r] );
+
+                            //convert pacinfo.content base64 encoded into string
+                            var pacinfo_json = new Buffer(pacinfo.content, 'base64').toString();
+                            pacinfo_json = JSON.parse(pacinfo_json);//convert to JSON object
+
+                            //add pacinfo attribute to repo
+                            callback_array[callback_array.length-1].pacinfo = pacinfo_json;
+                        }
+                        count++;
+
+                        if(count >= repos_count){
+                            returned = true;
+                            callback(null, callback_array);
+                        }
+                    });
+                })(r);//end of anonymous function
+                    
+            }//end for all repos
+
+            //if doesn't return after 15s, send error
+            setTimeout(function(){
+                if(returned == false){
+                    callback("Github API error: repo timeout");
+                }
+            }, 15000);
+
+        }//end if no err on db find()
     });
 
 
-/*
 
+/*
 
 	github.repos.getFromOrg({
     		org: "columbiagsapp",
@@ -154,20 +207,20 @@ exports.getRepos = function(callback){
                     github.repos.getContent({
                         user: "columbiagsapp",               
                         repo: repos_array[r].name,
-                        path: "cloudinfo.json",     
+                        path: "pacinfo.json",     
 
-                    }, function(err, cloudinfo){
+                    }, function(err, pacinfo){
                         if(err){
-                            //if no cloudinfo.json file, do nothing
+                            //if no pacinfo.json file, do nothing
                         }else{
                             callback_array.push( repos_array[r] );
 
-                            //convert cloudinfo.content base64 encoded into string
-                            var cloudinfo_json = new Buffer(cloudinfo.content, 'base64').toString();
-                            cloudinfo_json = JSON.parse(cloudinfo_json);//convert to JSON object
+                            //convert pacinfo.content base64 encoded into string
+                            var pacinfo_json = new Buffer(pacinfo.content, 'base64').toString();
+                            pacinfo_json = JSON.parse(pacinfo_json);//convert to JSON object
 
-                            //add cloudinfo attribute to repo
-                            callback_array[callback_array.length-1].cloudinfo = cloudinfo_json;
+                            //add pacinfo attribute to repo
+                            callback_array[callback_array.length-1].pacinfo = pacinfo_json;
                         }
                         count++;
 
