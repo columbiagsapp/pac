@@ -114,6 +114,21 @@ exports.getRepo = function(repoName, callback){
 exports.getRepos = function(callback){
     var returned = false;//flag set true once callback called
 
+
+
+    Repo.find().exec(function(err, repos_array){
+
+        if(err){
+
+        }else{
+            console.log('returned ' + repos_array.length + ' repos');
+        }
+    });
+
+
+/*
+
+
 	github.repos.getFromOrg({
     		org: "columbiagsapp",
             per_page: "10000"
@@ -175,6 +190,8 @@ exports.getRepos = function(callback){
         }//end if no err
 
 	});
+
+*/
 
 
 }//end export getRepos
