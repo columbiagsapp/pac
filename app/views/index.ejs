@@ -21,8 +21,8 @@
 						<a href="#<%= repos[i].name %>">
 							<div class="overlay">
 								<div class="screenshot">
-									<% if (repos[i].cloudinfo != null) { %>
-										<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].cloudinfo.thumbnail %>" >
+									<% if (repos[i].info != null) { %>
+										<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].info.thumbnail %>" >
 									<% }else{ %>
 										<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/screenshot.png" >
 									<% } %>	
@@ -58,8 +58,8 @@
 				<div class="repo" id="<%= repos[i].id %>">
 					<a href="#<%= repos[i].name %>">
 						<div class="screenshot">
-								<% if (repos[i].cloudinfo != null) { %>
-									<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].cloudinfo.thumbnail %>" >
+								<% if (repos[i].info != null) { %>
+									<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].info.thumbnail %>" >
 								<% }else{ %>
 									<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/screenshot.png" >
 								<% } %>	
