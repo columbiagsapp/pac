@@ -138,50 +138,53 @@ exports.getRepos = function(callback){
 
                     console.log('r: ' + r + ' username: ' + repos_array[r].username + ' reponame: ' + repos_array[r].reponame);
 
-
                     github.repos.get({
                         user: repos_array[r].username,               
                         repo: repos_array[r].reponame
                     }, function(err, repo){
 
-                        console.log('err: ' + err);
-                        console.log('repo:');
-                        console.dir(repo);
-                    });
-
-
-/*
-
-
-                    github.repos.getContent({
-                        user: repos_array[r].username,               
-                        repo: repos_array[r].reponame,
-                        path: "cloudinfo.json",     
-
-                    }, function(err, info){
                         if(err){
-                            //if no pacinfo.json file, do nothing
-                            console.log('no pacinfo.json file');
+                            console.log('err: ' + err);
                         }else{
-                            callback_array.push( repos_array[r] );
 
-                            //convert pacinfo.content base64 encoded into string
-                            var info_json = new Buffer(info.content, 'base64').toString();
-                            info_json = JSON.parse(info_json);//convert to JSON object
+                            console.log('repo:');
+                            console.dir(repo);
 
-                            //add pacinfo attribute to repo
-                            callback_array[callback_array.length-1] = 
-                            callback_array[callback_array.length-1].info = info_json;
-                        }
-                        count++;
+                            github.repos.getContent({
+                                user: repos_array[r].username,               
+                                repo: repos_array[r].reponame,
+                                path: "cloudinfo.json",     
 
-                        if(count >= repos_count){
-                            returned = true;
-                            callback(null, callback_array);
-                        }
-                    });
+                            }, function(err, info){
+                                if(err){
+                                    //if no pacinfo.json file, do nothing
+                                    console.log('no pacinfo.json file');
 
-*/
+                                    //push the result into the callback array
+                                    callback_array.push( repo );
+                                }else{
+                                    //convert pacinfo.content base64 encoded into string
+                                    var info_json = new Buffer(info.content, 'base64').toString();
+                                    info_json = JSON.parse(info_json);//convert to JSON object
+
+                                    //push the result into the callback array
+                                    callback_array.push( repo );
+
+                                    //add pacinfo attribute to repo
+                                    callback_array[callback_array.length-1].info = info_json;
+                                }
+
+                                count++;
+
+                                if(count >= repos_count){
+                                    returned = true;
+                                    callback(null, callback_array);
+                                }
+                            });//end of github.repos.getContent()
+
+                        }//no err on github.repos.get()
+                    });//end of github.repos.get()
+
                 })(r);//end of anonymous function
                     
             }//end for all repos
