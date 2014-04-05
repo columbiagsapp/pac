@@ -3,7 +3,7 @@ var githubAPI = require("../controllers/github");
 exports.index = function(req, res){
 
   	githubAPI.getRepos(function(err, rs){
-		res.render('index', { title: 'GSAPP Cloud Communications', err: err, repos: rs });
+		res.render('index', { title: 'Platform for Architecture Code', err: err, repos: rs });
 	});
 
 };
