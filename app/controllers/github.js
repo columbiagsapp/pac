@@ -138,6 +138,21 @@ exports.getRepos = function(callback){
 
                     console.log('r: ' + r + ' username: ' + repos_array[r].username + ' reponame: ' + repos_array[r].reponame);
 
+
+                    github.repos.get({
+                        user: repos_array[r].username,               
+                        repo: repos_array[r].reponame
+                    }, function(err, repo){
+
+                        console.log('err: ' + err);
+                        console.log('repo:');
+                        console.dir(repo);
+                    });
+
+
+/*
+
+
                     github.repos.getContent({
                         user: repos_array[r].username,               
                         repo: repos_array[r].reponame,
@@ -155,6 +170,7 @@ exports.getRepos = function(callback){
                             info_json = JSON.parse(info_json);//convert to JSON object
 
                             //add pacinfo attribute to repo
+                            callback_array[callback_array.length-1] = 
                             callback_array[callback_array.length-1].info = info_json;
                         }
                         count++;
@@ -164,6 +180,8 @@ exports.getRepos = function(callback){
                             callback(null, callback_array);
                         }
                     });
+
+*/
                 })(r);//end of anonymous function
                     
             }//end for all repos
