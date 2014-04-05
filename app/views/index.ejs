@@ -18,7 +18,7 @@
 			<% }else{ %>
 				<% for(var i=0; i < repos.length; i++) {%>
 					<div class="repo" id="<%= repos[i].id %>">
-						<a href="#<%= repos[i].reponame %>">
+						<a href="#<%= repos[i].info.name %>">
 							<div class="overlay">
 								<div class="screenshot">
 									<% if (repos[i].info != null) { %>
@@ -29,8 +29,8 @@
 								</div>
 							</div>
 							<div class="repo_inner">
-								<div class="name"><%= repos[i].reponame %></div>
-									<div class="description"><%= repos[i].description %></div>
+								<div class="name"><%= repos[i].info.name %></div>
+								<div class="description"><%= repos[i].description %></div>
 								<!-- <div class="stars"><%= repos[i].stars %></div>
 								<div class="forks"><%= repos[i].forks %></div> -->
 								<div class="stats">
@@ -56,7 +56,7 @@
 		<% }else{ %>
 			<% for(var i=0; i < repos.length; i++) {%>
 				<div class="repo" id="<%= repos[i].id %>">
-					<a href="#<%= repos[i].reponame %>">
+					<a href="#<%= repos[i].info.name %>">
 						<div class="screenshot">
 								<% if (repos[i].info != null) { %>
 									<img class="repo_thumb" src="https://raw.github.com/<%= repos[i].db.username %>/<%= repos[i].db.reponame %>/master/<%= repos[i].info.thumbnail %>" >
@@ -65,8 +65,8 @@
 								<% } %>	
 						</div>
 						<div class="repo_inner">
-							<div class="name"><%= repos[i].db.reponame %></div>
-								<div class="description"><%= repos[i].description %></div>
+							<div class="name"><%= repos[i].info.name %></div>
+							<div class="description"><%= repos[i].description %></div>
 							<!-- <div class="stars"><%= repos[i].stars %></div>
 							<div class="forks"><%= repos[i].forks %></div> -->
 							<div class="stats">
