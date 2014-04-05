@@ -143,7 +143,7 @@ exports.getRepos = function(callback){
                         repo: repos_array[r].reponame,
                         path: "cloudinfo.json",     
 
-                    }, function(err, pacinfo){
+                    }, function(err, info){
                         if(err){
                             //if no pacinfo.json file, do nothing
                             console.log('no pacinfo.json file');
@@ -151,11 +151,11 @@ exports.getRepos = function(callback){
                             callback_array.push( repos_array[r] );
 
                             //convert pacinfo.content base64 encoded into string
-                            var pacinfo_json = new Buffer(pacinfo.content, 'base64').toString();
-                            pacinfo_json = JSON.parse(pacinfo_json);//convert to JSON object
+                            var info_json = new Buffer(info.content, 'base64').toString();
+                            info_json = JSON.parse(info_json);//convert to JSON object
 
                             //add pacinfo attribute to repo
-                            callback_array[callback_array.length-1].pacinfo = pacinfo_json;
+                            callback_array[callback_array.length-1].info = info_json;
                         }
                         count++;
 
