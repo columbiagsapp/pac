@@ -12,6 +12,7 @@
     "github": "*",
     "markdown": "*",
     "connect-mongo": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "lodash": "*"
   }
 }
