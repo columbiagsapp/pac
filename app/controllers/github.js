@@ -128,7 +128,6 @@ exports.getRepos = function(callback){
 
 
             console.log('\n\n\nTHIS IS THE REPOS ARRAY:\n\n\n');
-            console.dir(repos_array);
 
             //console.log('\n\n\n\nTHIS IS THE repos_array.length: '+ repos_array.length + '\n\n\n\n');
             var callback_array = [];
@@ -146,9 +145,6 @@ exports.getRepos = function(callback){
                         if(err){
                             console.log('err: ' + err);
                         }else{
-
-                            console.log('repo:');
-                            console.dir(repo);
 
                             github.repos.getContent({
                                 user: repos_array[r].username,               
@@ -178,6 +174,10 @@ exports.getRepos = function(callback){
 
                                 if(count >= repos_count){
                                     returned = true;
+
+                                    console.log('calling back with callback array:');
+                                    console.dir(callback_array);
+
                                     callback(null, callback_array);
                                 }
                             });//end of github.repos.getContent()
