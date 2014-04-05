@@ -18,18 +18,18 @@
 			<% }else{ %>
 				<% for(var i=0; i < repos.length; i++) {%>
 					<div class="repo" id="<%= repos[i].id %>">
-						<a href="#<%= repos[i].name %>">
+						<a href="#<%= repos[i].reponame %>">
 							<div class="overlay">
 								<div class="screenshot">
 									<% if (repos[i].info != null) { %>
-										<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].info.thumbnail %>" >
+										<img class="repo_thumb" src="https://raw.github.com/<%= repos[i].username %>/<%= repos[i].reponame %>/master/<%= repos[i].info.thumbnail %>" >
 									<% }else{ %>
-										<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/screenshot.png" >
+										<img class="repo_thumb" src="https://raw.github.com/<%= repos[i].username %>/<%= repos[i].reponame %>/master/screenshot.png" >
 									<% } %>	
 								</div>
 							</div>
 							<div class="repo_inner">
-								<div class="name"><%= repos[i].name %></div>
+								<div class="name"><%= repos[i].reponame %></div>
 									<div class="description"><%= repos[i].description %></div>
 								<!-- <div class="stars"><%= repos[i].stars %></div>
 								<div class="forks"><%= repos[i].forks %></div> -->
@@ -56,16 +56,16 @@
 		<% }else{ %>
 			<% for(var i=0; i < repos.length; i++) {%>
 				<div class="repo" id="<%= repos[i].id %>">
-					<a href="#<%= repos[i].name %>">
+					<a href="#<%= repos[i].reponame %>">
 						<div class="screenshot">
 								<% if (repos[i].info != null) { %>
-									<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/<%= repos[i].info.thumbnail %>" >
+									<img class="repo_thumb" src="https://raw.github.com/<%= repos[i].username %>/<%= repos[i].reponame %>/master/<%= repos[i].info.thumbnail %>" >
 								<% }else{ %>
-									<img class="repo_thumb" src="https://raw.github.com/columbiagsapp/<%= repos[i].name %>/master/screenshot.png" >
+									<img class="repo_thumb" src="https://raw.github.com/<%= repos[i].username %>/<%= repos[i].reponame %>/master/screenshot.png" >
 								<% } %>	
 						</div>
 						<div class="repo_inner">
-							<div class="name"><%= repos[i].name %></div>
+							<div class="name"><%= repos[i].reponame %></div>
 								<div class="description"><%= repos[i].description %></div>
 							<!-- <div class="stars"><%= repos[i].stars %></div>
 							<div class="forks"><%= repos[i].forks %></div> -->
