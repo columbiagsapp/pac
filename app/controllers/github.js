@@ -156,6 +156,9 @@ exports.getRepos = function(callback){
                                     //if no pacinfo.json file, do nothing
                                     console.log('no pacinfo.json file');
 
+                                    //add db info to repo
+                                    callback_array[callback_array.length-1].db = repos_array;
+
                                     //push the result into the callback array
                                     callback_array.push( repo );
                                 }else{
@@ -165,6 +168,9 @@ exports.getRepos = function(callback){
 
                                     //push the result into the callback array
                                     callback_array.push( repo );
+
+                                    //add db info to repo
+                                    callback_array[callback_array.length-1].db = repos_array;
 
                                     //add pacinfo attribute to repo
                                     callback_array[callback_array.length-1].info = info_json;
