@@ -141,7 +141,7 @@ exports.getRepos = function(callback){
                     github.repos.getContent({
                         user: repos_array[r].username,               
                         repo: repos_array[r].reponame,
-                        path: "pacinfo.json",     
+                        path: "cloudinfo.json",     
 
                     }, function(err, pacinfo){
                         if(err){
