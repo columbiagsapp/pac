@@ -156,11 +156,6 @@ exports.getRepos = function(callback){
                                     //if no pacinfo.json file, do nothing
                                     console.log('no pacinfo.json file');
 
-                                    //add db info to repo
-                                    callback_array[callback_array.length-1].db = repos_array[r];
-
-                                    //push the result into the callback array
-                                    callback_array.push( repo );
                                 }else{
                                     //convert pacinfo.content base64 encoded into string
                                     var info_json = new Buffer(info.content, 'base64').toString();
