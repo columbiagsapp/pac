@@ -1,0 +1,37 @@
+{
+    "name": "Platform for Architecture Code",
+    "url": "pac.gsapp.org",
+    "version": "0.1",
+    "thumbnail": "screenshot.png",
+    "contributors": [
+        {
+            "name": "Troy Conrad Therrien",
+            "username": "troyth",
+            "role": "lead"
+        },
+        {
+            "name": "Dan Taeyoung Lee",
+            "username": "provolot",
+            "role": "lead"
+        },
+        {
+            "name": "Kyong Kim",
+            "username": "",
+            "role": "designer"
+        },
+        {
+            "name": "Lorenzo Villagi",
+            "username": "",
+            "role": "student lead"
+        },
+        {
+            "name": "Carlo Baily",
+            "username": "",
+            "role": "student lead"
+        }
+
+    ],
+    "dependencies": [
+
+    ]
+}
